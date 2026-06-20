@@ -1,0 +1,8 @@
+Untuk instalasi di komputer lain:
+
+pip install -r requirements.txt
+
+
+Jika ingin memastikan versi terbaru atau kompatibilitas di device lain, Anda bisa menggunakan:
+
+pip freeze > requirements.txt
