@@ -2,206 +2,247 @@ import streamlit as st
 import base64
 import streamlit.components.v1 as components
 
-# =============================
+# =====================================
 # PAGE CONFIG
-# =============================
+# =====================================
 st.set_page_config(
-    page_title="Cement SCM Simulation",
+    page_title="SCM Cement Dashboard",
     page_icon="🏭",
-    layout="centered"
+    layout="wide"
 )
 
-# =============================
-# LOAD LOGO (BASE64)
-# =============================
+# =====================================
+# LOAD LOGO
+# =====================================
 def img_to_base64(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
 logo = img_to_base64("assets/LOGO-UTM.png")
 
-# =============================
-# FULL HTML – FINAL COVER UTHM
-# =============================
+# =====================================
+# DASHBOARD HTML
+# =====================================
 html_code = f"""
 <!DOCTYPE html>
 <html>
 <head>
 <style>
+
 body {{
-    margin: 0;
-    background: linear-gradient(180deg, #081826, #0b2239);
-    font-family: "Times New Roman", Georgia, serif;
-    color: #e5e7eb;
+    margin:0;
+    background:#f4f7fa;
+    font-family: 'Segoe UI', sans-serif;
 }}
 
 .container {{
-    max-width: 1000px;
-    margin: 40px auto 60px auto;
+    max-width:1400px;
+    margin:auto;
 }}
 
-.hero {{
-    background: linear-gradient(180deg, #102a43, #0b2239);
-    border-left: 6px solid #3b82f6;
-    padding: 48px 40px;
-    border-radius: 16px;
-    box-shadow: 0 14px 38px rgba(0,0,0,0.45);
+.header {{
+    background: linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;
+    padding:40px;
+    border-radius:20px;
+    margin-top:20px;
 }}
 
-.hero-title {{
-    text-align: center;
-    font-size: 30px;
-    font-weight: 800;
-    color: #ffffff;
-    line-height: 1.5;
-    text-transform: uppercase;
+.header-flex {{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 }}
 
-.hero-subtitle {{
-    text-align: center;
-    font-size: 15px;
-    color: #cbd5e1;
-    margin-top: 18px;
-    letter-spacing: 0.5px;
+.logo img {{
+    width:90px;
 }}
 
-.author {{
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    margin-top: 28px;
-    letter-spacing: 0.6px;
-    color: #f8fafc;
+.title {{
+    flex:1;
+    padding-left:30px;
 }}
 
-/* UNIVERSITY CARD (OFFICIAL) */
-.uni-card {{
-    margin-top: 38px;
-    background: #0f2a44;
-    padding: 40px 36px;
-    border-radius: 14px;
-    text-align: center;
-    box-shadow: 0 10px 18px rgba(0,0,0,0.35);
+.title h1 {{
+    margin:0;
+    font-size:36px;
 }}
 
-.uni-logo {{
-    margin-bottom: 22px;
+.title p {{
+    margin-top:10px;
+    color:#cbd5e1;
+    font-size:16px;
 }}
 
-.uni-logo img {{
-    width: 80px;   /* LOGO LEBIH LEBAR */
-    max-width: 100%;
+.kpi-container {{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:30px;
 }}
 
-.uni-degree {{
-    font-weight: 700;
-    font-size: 16px;
-    color: #ffffff;
-    margin-bottom: 16px;
+.kpi {{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
 }}
 
-.uni-text {{
-    font-size: 15px;
-    line-height: 1.8;
-    color: #e2e8f0;
+.kpi-title {{
+    color:#64748b;
+    font-size:14px;
 }}
 
-.year {{
-    text-align: center;
-    margin-top: 18px;
-    color: #cbd5e1;
-    font-size: 14px;
-    letter-spacing: 0.4px;
+.kpi-value {{
+    font-size:30px;
+    font-weight:bold;
+    color:#0f172a;
+    margin-top:10px;
 }}
 
-.declaration {{
-    margin-top: 44px;
-    background: #081a2c;
-    padding: 30px 34px;
-    border-radius: 14px;
-    font-size: 13.5px;
-    line-height: 1.8;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+.section {{
+    margin-top:30px;
 }}
 
-.declaration-title {{
-    text-align: center;
-    font-weight: 700;
-    margin-bottom: 18px;
-    color: #ffffff;
-    letter-spacing: 0.5px;
+.card-container {{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
 }}
+
+.card {{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}}
+
+.card h3 {{
+    margin-top:0;
+    color:#1e3a8a;
+}}
+
+.card p {{
+    color:#475569;
+    line-height:1.7;
+}}
+
+.footer {{
+    margin-top:40px;
+    text-align:center;
+    color:#64748b;
+    font-size:14px;
+}}
+
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
-    <div class="hero">
-        <div class="hero-title">
-            Dynamic System Model to Improve the Ratio and Efficiency in the Supply Chain
-            Management (SCM) Distribution of the Cement Industry
-        </div>
+    <div class="header">
 
-        <div class="hero-subtitle">
-            At Banten Province, Indonesia
-        </div>
+        <div class="header-flex">
 
-        <div class="author">
-            YUDI MAULANA
-        </div>
-
-        <div class="uni-card">
-            <div class="uni-logo">
+            <div class="logo">
                 <img src="data:image/png;base64,{logo}">
             </div>
 
-            <div class="uni-degree">
-                Doctor of Philosophy in Mechanical Engineering
+            <div class="title">
+                <h1>Cement Supply Chain Dashboard</h1>
+                <p>
+                    Intelligent Decision Support System for Supply Chain Management,
+                    Distribution Optimization, Inventory Monitoring and Dynamic Simulation.
+                </p>
             </div>
 
-            <div class="uni-text">
-                Faculty of Mechanical and Manufacturing Engineering<br>
-                Universiti Tun Hussein Onn Malaysia
-            </div>
-                <div class="year">
-                January 2026
-            </div>
         </div>
-        <div class="declaration">
-            <div class="declaration-title">STUDENT DECLARATION</div>
-    
-            “I hereby declare that the work in this thesis is my own except for quotations
-            and summaries which have been duly acknowledged.”<br><br>
-    
-            <b>Student:</b> Yudi Maulana<br>
-            <b>Date:</b> 22 January 2026<br><br>
-    
-            <b>Supervisor:</b> Prof. Ir. Ts. Dr. Bukhari Bin Manshoor<br>
-            <b>Supervisor:</b> Ir. Dr.-Eng. Mairiza Zainuddin
-        </div>
+
     </div>
+
+    <div class="kpi-container">
+
+        <div class="kpi">
+            <div class="kpi-title">Distribution Efficiency</div>
+            <div class="kpi-value">95%</div>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-title">Inventory Accuracy</div>
+            <div class="kpi-value">98%</div>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-title">Service Level</div>
+            <div class="kpi-value">92%</div>
+        </div>
+
+        <div class="kpi">
+            <div class="kpi-title">Supply Reliability</div>
+            <div class="kpi-value">97%</div>
+        </div>
+
+    </div>
+
+    <div class="section">
+
+        <div class="card-container">
+
+            <div class="card">
+                <h3>📊 SCM Analytics</h3>
+                <p>
+                    Analyze production, inventory, transportation,
+                    and demand patterns in real-time.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>🔮 Fuzzy Decision System</h3>
+                <p>
+                    Support decision making using fuzzy inference
+                    and intelligent forecasting models.
+                </p>
+            </div>
+
+            <div class="card">
+                <h3>⚙️ Dynamic Simulation</h3>
+                <p>
+                    Simulate supply chain scenarios to evaluate
+                    operational performance and future strategies.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        SCM Optimization Platform © 2026
+    </div>
+
 </div>
+
 </body>
 </html>
 """
 
-components.html(html_code, height=1150)
+components.html(html_code, height=700)
 
-# =============================
-# RUN SIMULATION BUTTON
-# =============================
-col1, col2, col3 = st.columns([1, 2, 1])
-with col2:
-    if st.button("🚀 Run Simulation", use_container_width=True):
+# =====================================
+# ACTION BUTTONS
+# =====================================
+st.markdown("### 🚀 Quick Access")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if st.button("Run Simulation", use_container_width=True):
         st.switch_page("pages/1_Fuzzy_System.py")
 
+with col2:
+    st.button("View Analytics", use_container_width=True)
 
-
-
-
-
-
-
-
-
+with col3:
+    st.button("Generate Report", use_container_width=True)
