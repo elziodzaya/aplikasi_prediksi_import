@@ -18,7 +18,7 @@ def img_to_base64(path):
     with open(path, "rb") as f:
         return base64.b64encode(f.read()).decode()
 
-logo = img_to_base64("assets/LOGO-UTM.png")
+logo = img_to_base64("assets/logo.png")
 
 # =====================================
 # DASHBOARD HTML
